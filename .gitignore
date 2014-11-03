@@ -1,0 +1,6 @@
+#directories to exclude
+files/
+
+#misc
+*.pyc
+*.log

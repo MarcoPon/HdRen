@@ -6,8 +6,8 @@
 # Author:      Mark
 #
 # Created:     02/11/2013
-# Copyright:   (c) Mark 2013
-# Licence:     boh!
+# Copyright:   (c) 2013 Marco Pontello
+# License:     The MIT License (MIT) - http://opensource.org/licenses/MIT
 #-------------------------------------------------------------------------------
 #!/usr/bin/env python
 

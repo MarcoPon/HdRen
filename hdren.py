@@ -3,7 +3,7 @@
 # Purpose:     rename files adding their header hexdump, for a quick & easy
 #              grouping by filetype
 #
-# Author:      Mark
+# Author:      Marco Pontello - http://mark0.net
 #
 # Created:     02/11/2013
 # Copyright:   (c) 2013 Marco Pontello

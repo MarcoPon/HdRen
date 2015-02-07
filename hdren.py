@@ -16,7 +16,7 @@ import argparse
 import glob
 
 
-PROGRAM_VER = "1.00"
+PROGRAM_VER = "1.01b"
 
 PARAMS = {}
 

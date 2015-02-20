@@ -6,7 +6,7 @@
 # Author:      Marco Pontello - http://mark0.net
 #
 # Created:     02/11/2013
-# Copyright:   (c) 2013 Marco Pontello
+# Copyright:   (c) 2015 Marco Pontello
 # License:     The MIT License (MIT) - http://opensource.org/licenses/MIT
 #-------------------------------------------------------------------------------
 #!/usr/bin/env python
@@ -16,14 +16,14 @@ import argparse
 import glob
 
 
-PROGRAM_VER = "1.01b"
+PROGRAM_VER = "1.00.1b"
 
 PARAMS = {}
 
 def header_intro():
   """Display the usual presentation, version, (C) notices, etc."""
   print
-  print "HdRen - hexdump file renamer v%s - (C) 2013 By M.Pontello" % \
+  print "HdRen - hexdump file renamer v%s - (C) 2015 By M.Pontello" % \
         (PROGRAM_VER)
   print
 
@@ -33,15 +33,17 @@ def get_cmdline():
     """
     parser = argparse.ArgumentParser(
              description="Rename a number of files \
-             adding their 4 bytes header hexdump.",
+             adding their n bytes header hexdump.",
              prefix_chars='-/+',
              version = "DupDel v" + PROGRAM_VER)
     parser.add_argument("filenames", action="store", nargs="+",
-                        help = "Files to scan (can include path & wildcards)")
+                        help="Files to scan (can include path & wildcards)")
+    parser.add_argument("-l", "--len", type=int, default=4,
+                        help="header's lenght")
     res = parser.parse_args()
 
     PARAMS["files"] = res.filenames
-    PARAMS["hdrlen"] = 4
+    PARAMS["hdrlen"] = res.len
     
 def hexdump(filename, hdrlen):
     f = open(filename, "rb")
@@ -81,7 +83,6 @@ def main():
     hdrlen = PARAMS["hdrlen"]
 
     renfiles(filenames, hdrlen)
-    
 
 if __name__ == '__main__':
     main()

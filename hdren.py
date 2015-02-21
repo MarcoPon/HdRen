@@ -39,7 +39,7 @@ def get_cmdline():
     parser.add_argument("filenames", action="store", nargs="+",
                         help="Files to scan (can include path & wildcards)")
     parser.add_argument("-l", "--len", type=int, default=4,
-                        help="header's lenght")
+                        help="header's lenght", metavar="n")
     res = parser.parse_args()
 
     PARAMS["files"] = res.filenames

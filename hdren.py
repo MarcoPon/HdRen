@@ -16,7 +16,7 @@ import argparse
 import glob
 import fnmatch
 
-PROGRAM_VER = "1.00.99b"
+PROGRAM_VER = "1.00.100b"
 
 PARAMS = {}
 
@@ -76,18 +76,12 @@ def main():
     get_cmdline()
 
     filenames = []
-
-    if not PARAMS["recurse"]:
-      for filename in PARAMS["files"]:
-          if os.path.isdir(filename):
-              filename = os.path.join(filename, "*")
-          filenames += glob.glob(unicode(filename))
-      filenames = [filename for filename in filenames if not os.path.isdir(filename)]
-    else:
-      for param in PARAMS["files"]:
-        filepath, filename = os.path.split(param)
+    for filespec in PARAMS["files"]:
+        filepath, filename = os.path.split(filespec)
         for wroot, wdirs, wfiles in os.walk(filepath):
-          for fn in fnmatch.filter(wfiles, filename):
+            if not PARAMS["recurse"]:
+                wdirs[:] = []
+            for fn in fnmatch.filter(wfiles, filename):
               filenames.append(os.path.join(wroot, fn))
               
     filenames = sorted(set(filenames))

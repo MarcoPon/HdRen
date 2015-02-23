@@ -16,7 +16,7 @@ import argparse
 import glob
 import fnmatch
 
-PROGRAM_VER = "1.00.3b"
+PROGRAM_VER = "1.00.99b"
 
 PARAMS = {}
 
@@ -94,9 +94,7 @@ def main():
     filenames = [os.path.abspath(filename) for filename in filenames]
     hdrlen = PARAMS["hdrlen"]
 
-    #renfiles(filenames, hdrlen)
-    for filename in filenames:
-      print filename
+    renfiles(filenames, hdrlen)
   
 
 if __name__ == '__main__':

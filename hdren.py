@@ -21,11 +21,11 @@ PROGRAM_VER = "1.01"
 PARAMS = {}
 
 def header_intro():
-  """Display the usual presentation, version, (C) notices, etc."""
-  print
-  print "HdRen - hexdump file renamer v%s - (C) 2015 By M.Pontello" % \
-        (PROGRAM_VER)
-  print
+    """Display the usual presentation, version, (C) notices, etc."""
+    print
+    print "HdRen - hexdump file renamer v%s - (C) 2015 By M.Pontello" % \
+          (PROGRAM_VER)
+    print
 
 def get_cmdline():
     """
@@ -47,7 +47,7 @@ def get_cmdline():
     PARAMS["files"] = res.filenames
     PARAMS["hdrlen"] = res.len
     PARAMS["recurse"] = res.recurse
-    
+
 def hexdump(filename, hdrlen):
     f = open(filename, "rb")
     buffer = f.read(hdrlen)
@@ -58,17 +58,17 @@ def hexdump(filename, hdrlen):
     for b in buffer:
         text += "%02x" % ord(b)
     return text.upper()
-    
+
 def renfiles(filenames, hdrlen):
     for filename in filenames:
         hextext = hexdump(filename, hdrlen)
         newfilename = os.path.join(os.path.dirname(filename),
                                    hextext + "=" + os.path.basename(filename))
         try:
-          os.rename(filename, newfilename)
-          print newfilename
+            os.rename(filename, newfilename)
+            print newfilename
         except:
-          print "error: can't rename", filename
+            print "error: can't rename", filename
 
 
 def main():
@@ -82,13 +82,13 @@ def main():
             if not PARAMS["recurse"]:
                 wdirs[:] = []
             for fn in fnmatch.filter(wfiles, filename):
-              filenames.append(os.path.join(wroot, fn))
+                filenames.append(os.path.join(wroot, fn))
     filenames = sorted(set(filenames))
     filenames = [os.path.abspath(filename) for filename in filenames]
 
     hdrlen = PARAMS["hdrlen"]
     renfiles(filenames, hdrlen)
-  
+
 
 if __name__ == '__main__':
     main()

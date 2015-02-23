@@ -14,9 +14,9 @@
 import os
 import argparse
 import glob
+import fnmatch
 
-
-PROGRAM_VER = "1.00.1b"
+PROGRAM_VER = "1.00.3b"
 
 PARAMS = {}
 
@@ -40,10 +40,13 @@ def get_cmdline():
                         help="Files to scan (can include path & wildcards)")
     parser.add_argument("-l", "--len", type=int, default=4,
                         help="header's lenght", metavar="n")
+    parser.add_argument("-r", "--recurse", action="store_true",
+                        help="recurse subdirs")
     res = parser.parse_args()
 
     PARAMS["files"] = res.filenames
     PARAMS["hdrlen"] = res.len
+    PARAMS["recurse"] = res.recurse
     
 def hexdump(filename, hdrlen):
     f = open(filename, "rb")
@@ -73,16 +76,28 @@ def main():
     get_cmdline()
 
     filenames = []
-    for filename in PARAMS["files"]:
-        if os.path.isdir(filename):
-            filename = os.path.join(filename, "*")
-        filenames += glob.glob(unicode(filename))
-    filenames = [filename for filename in filenames if not os.path.isdir(filename)]
+
+    if not PARAMS["recurse"]:
+      for filename in PARAMS["files"]:
+          if os.path.isdir(filename):
+              filename = os.path.join(filename, "*")
+          filenames += glob.glob(unicode(filename))
+      filenames = [filename for filename in filenames if not os.path.isdir(filename)]
+    else:
+      for param in PARAMS["files"]:
+        filepath, filename = os.path.split(param)
+        for wroot, wdirs, wfiles in os.walk(filepath):
+          for fn in fnmatch.filter(wfiles, filename):
+              filenames.append(os.path.join(wroot, fn))
+              
     filenames = sorted(set(filenames))
     filenames = [os.path.abspath(filename) for filename in filenames]
     hdrlen = PARAMS["hdrlen"]
 
-    renfiles(filenames, hdrlen)
+    #renfiles(filenames, hdrlen)
+    for filename in filenames:
+      print filename
+  
 
 if __name__ == '__main__':
     main()

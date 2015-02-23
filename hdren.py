@@ -37,7 +37,7 @@ def get_cmdline():
              prefix_chars='-/+',
              version = "DupDel v" + PROGRAM_VER)
     parser.add_argument("filenames", action="store", nargs="+",
-                        help="Files to scan (can include path & wildcards)")
+                        help="files to scan (can include path & wildcards)")
     parser.add_argument("-l", "--len", type=int, default=4,
                         help="header's lenght", metavar="n")
     parser.add_argument("-r", "--recurse", action="store_true",

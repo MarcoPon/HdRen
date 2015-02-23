@@ -16,7 +16,7 @@ import argparse
 import glob
 import fnmatch
 
-PROGRAM_VER = "1.01"
+PROGRAM_VER = "1.02"
 
 PARAMS = {}
 
@@ -78,6 +78,10 @@ def main():
     filenames = []
     for filespec in PARAMS["files"]:
         filepath, filename = os.path.split(filespec)
+        if not filepath:
+            filepath = "."
+        if not filename:
+            filename = "*"
         for wroot, wdirs, wfiles in os.walk(filepath):
             if not PARAMS["recurse"]:
                 wdirs[:] = []

@@ -16,7 +16,7 @@ import argparse
 import glob
 import fnmatch
 
-PROGRAM_VER = "1.00.100b"
+PROGRAM_VER = "1.01"
 
 PARAMS = {}
 
@@ -83,11 +83,10 @@ def main():
                 wdirs[:] = []
             for fn in fnmatch.filter(wfiles, filename):
               filenames.append(os.path.join(wroot, fn))
-              
     filenames = sorted(set(filenames))
     filenames = [os.path.abspath(filename) for filename in filenames]
-    hdrlen = PARAMS["hdrlen"]
 
+    hdrlen = PARAMS["hdrlen"]
     renfiles(filenames, hdrlen)
   
 
